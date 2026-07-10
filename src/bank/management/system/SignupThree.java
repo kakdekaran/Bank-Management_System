@@ -9,10 +9,11 @@ public class SignupThree extends JFrame implements ActionListener{
 	JRadioButton r1, r2, r3, r4;
 	JCheckBox c1, c2, c3, c4, c5, c6, c7;
 	JButton submit, cancel;
+	String formno;
 	
-	
-	SignupThree(){
+	SignupThree(String formno){
 		
+		this.formno = formno;
 		setLayout(null);
 		
 		JLabel l1 = new JLabel("Page 3: Account Details");
@@ -172,17 +173,49 @@ public class SignupThree extends JFrame implements ActionListener{
 			}
 			
 			Random random = new Random();
-			String cardnumber = "" +  Math.abs(random.nextLong() % 90000000L + 54078970000000000L);
-			String pinnumber = "" + Math.abs(random.nextLong() % 9000L + 1000L);
+			String cardnumber = "" +  Math.abs((random.nextLong() % 90000000L) + 5407897000000000L);
+			String pinnumber = "" + Math.abs((random.nextLong() % 9000L) + 1000L);
+
+			String facility = "";
+			if(c1.isSelected()){
+				facility = facility + " ATM Card";
+			} else if(c2.isSelected()){
+				facility = facility + " Internet Banking";
+			} else if(c3.isSelected()){
+				facility = facility + " Mobile Banking";
+			} else if(c4.isSelected()){
+				facility = facility + " Email & SMS";
+			} else if(c5.isSelected()){
+				facility = facility + " Cheque Service";
+			} else if(c6.isSelected()){
+				facility = facility + " E-Statement";
+			}
 			
-			
+			try {
+				if (accountType.equals("")){
+					JOptionPane.showMessageDialog(null, "Account Type Required");
+				} else{
+					conn Con = new conn();
+					String query1 = "insert into signupThree values('"+formno+"', '"+accountType+"', '"+cardnumber+"', '"+pinnumber+"', '"+facility+"')";
+					String query2 = "insert into login values('"+formno+"', '"+cardnumber+"', '"+pinnumber+"')";
+
+					Con.s.executeUpdate(query1);
+					Con.s.executeUpdate(query2);
+					JOptionPane.showMessageDialog(null, "Card Number: " + cardnumber + "\n Pin: " + pinnumber);
+					
+				}
+			} catch (Exception e){
+				System.out.println(e);
+			}
+
+
 		}else if(ae.getSource() == cancel){
 			
 		}
 	}
 	
 		public static void main(String[] args) {
-			new SignupThree();
+			new SignupThree("");
 			
 		}
 }
