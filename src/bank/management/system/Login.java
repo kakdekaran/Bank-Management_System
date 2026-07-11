@@ -2,8 +2,6 @@ package bank.management.system;
 import java.awt.*;
 import javax.swing.*;
 
-import bank.Transactions;
-
 import java.awt.event.*;
 import java.sql.ResultSet;
 import java.sql.*;

@@ -1,4 +1,4 @@
-package bank;
+package bank.management.system;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -73,6 +73,12 @@ public class Transactions extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource() == exit){
             System.exit(0);
+        } else if (ae.getSource() == deposit){
+            setVisible(false);
+            new Deposit(pinnumber).setVisible(true);
+        } else if(ae.getSource() == withdrawl){
+            setVisible(false);
+            new withdrawl(pinnumber).setVisible(true);
         }
     }
     public static void main(String[] args) {
